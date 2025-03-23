@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALAGOANA | Checkout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .total-highlight {
+            font-size: 1.5rem;
+            background-color: #ffcc00;
+            color: #000;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .payment-method {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .payment-method:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Finalizar Compra</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Resumo do Pedido</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Curso de Culinária Avançado - <strong>MT 1,500</strong></li>
+                    <li class="list-group-item">Taxa de Serviço - <strong>MT 50</strong></li>
+                    <li class="list-group-item total-highlight"><strong>Total: MT 1,550</strong></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h4>Informações de Pagamento</h4>
+                <form id="checkout-form">
+                    <div class="mb-3">
+                        <label class="form-label">Nome Completo</label>
+                        <input type="text" class="form-control" id="nome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Número de Telefone</label>
+                        <input type="tel" class="form-control" id="telefone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Método de Pagamento</label>
+                        <select class="form-select" id="metodo-pagamento" required>
+                            <option value="mpesa">M-Pesa</option>
+                            <option value="emola">eMola</option>
+                            <option value="cartao">Cartão de Crédito/Débito</option>
+                        </select>
+                    </div>
+                    <div class="mt-4">
+                        <h5>Métodos de Pagamento:</h5>
+                        <img src="./assets/img/Mp.png" alt="eMola" class="payment-method" style="width: 80px;" onclick="selecionarPagamento('emola')">
+                        <img src="./assets/img/Sem título.png" alt="M-Pesa" class="payment-method" style="width: 80px;" onclick="selecionarPagamento('mpesa')">
+                    </div>        
+                    <button type="submit" class="btn btn-success w-100 mt-3" id="botao-pagar">
+                        <strong>Pagar Agora</strong>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selecionarPagamento(metodo) {
+            $('#metodo-pagamento').val(metodo);
+        }
+
+        $(document).ready(function() {
+            $('#checkout-form').submit(function(event) {
+                event.preventDefault();
+                if ($('#nome').val() === '' || $('#telefone').val() === '') {
+                    alert('Preencha todos os campos obrigatórios.');
+                    return;
+                }
+                alert('Pagamento realizado com sucesso!');
+            });
+
+            $('#aplicar-cupom').click(function() {
+                let cupom = $('#cupom').val().trim();
+                if (cupom === 'DESCONTO10') {
+                    alert('Cupom aplicado! Você ganhou 10% de desconto.');
+                } else {
+                    alert('Cupom inválido.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
